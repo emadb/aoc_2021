@@ -11,15 +11,9 @@ defmodule Aoc.DayOne do
     count_sliding_3(input, 0)
   end
 
-  defp count_diff(prev, [list], count) when list-prev > 0, do: count + 1
-  defp count_diff(prev, [first | list], count) do
-    if first - prev > 0 do
-      count_diff(first, list, count + 1)
-    else
-      count_diff(first, list, count)
-    end
-  end
-  defp count_diff(_, _, count), do: count
+  defp count_diff(prev, [list], count) when list - prev > 0, do: count + 1
+  defp count_diff(prev, [first | list], count) when first - prev > 0, do: count_diff(first, list, count + 1)
+  defp count_diff(_prev, [first | list], count), do: count_diff(first, list, count)
 
   defp count_sliding_3([a1, a2, a3, a4 | rest], count) do
     sum1 = a1 + a2 + a3
@@ -31,7 +25,5 @@ defmodule Aoc.DayOne do
     end
   end
 
-  defp count_sliding_3(_, count) do
-    count
-  end
+  defp count_sliding_3(_, count), do: count
 end
