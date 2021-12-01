@@ -1,26 +1,37 @@
 defmodule Aoc.DayOne do
 
   def part_one(file_path) do
-    input = get_input_list(file_path)
-    List.first(for a <- input, b <- input, is_2020(a, b), do: a * b)
+    input = InputReader.get_lines_integer(file_path)
+    [first_element | rest] = input
+    count_diff(first_element, rest, 0)
   end
 
   def part_two(file_path) do
-    input = get_input_list(file_path)
-    List.first(for a <- input, b <- input, c <- input, is_2020(a, b, c), do: a * b * c)
+    input = InputReader.get_lines_integer(file_path)
+    count_sliding_3(input, 0)
   end
 
-  def get_input_list(file_path) do
-    file_path
-    |> File.read!()
-    |> String.split("\n")
-    |> Enum.map(fn i ->
-      {n, _} = Integer.parse(i)
-      n
-    end)
+  defp count_diff(prev, [list], count) when list-prev > 0, do: count + 1
+  defp count_diff(prev, [first | list], count) do
+    if first - prev > 0 do
+      count_diff(first, list, count + 1)
+    else
+      count_diff(first, list, count)
+    end
+  end
+  defp count_diff(_, _, count), do: count
 
+  defp count_sliding_3([a1, a2, a3, a4 | rest], count) do
+    sum1 = a1 + a2 + a3
+    sum2 = a2 + a3 + a4
+    if (sum2 - sum1) > 0 do
+      count_sliding_3([a2, a3, a4 | rest], count + 1)
+    else
+      count_sliding_3([a2, a3, a4 | rest], count)
+    end
   end
 
-  defp is_2020(a, b, c \\ 0), do: a + b + c == 2020
-
+  defp count_sliding_3(_, count) do
+    count
+  end
 end

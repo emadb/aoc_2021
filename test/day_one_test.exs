@@ -1,32 +1,33 @@
 defmodule Aoc.DayOneTest do
   use ExUnit.Case
-  @fake_input "./test/fake_inputs/day_one.txt"
-  @real_input "./lib/inputs/day_one.txt"
+  @day 1
+  @fake_input "./test/fake_inputs/day_#{@day}.txt"
+  @real_input "./lib/inputs/day_#{@day}.txt"
 
   test "part one (fake)" do
     input = Path.absname(@fake_input)
     result = Aoc.DayOne.part_one(input)
 
-    assert result == 514579
+    assert result == 7
   end
 
   test "part one" do
     input = Path.absname(@real_input)
     result = Aoc.DayOne.part_one(input)
-    assert result == 158916
+    assert result == 1722
   end
 
   test "part two (fake)" do
     input = Path.absname(@fake_input)
     result = Aoc.DayOne.part_two(input)
 
-    assert result == 241861950
+    assert result == 5
   end
 
   test "part two" do
     input = Path.absname(@real_input)
     result = Aoc.DayOne.part_two(input)
 
-    assert result == 165795564
+    assert result == 1748
   end
 end
