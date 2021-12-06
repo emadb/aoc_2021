@@ -16,4 +16,9 @@ defmodule InputReader do
     |> String.split("\n")
   end
 
+  def get_line(file_path) do
+    file_path
+    |> File.read!()
+  end
+
 end
