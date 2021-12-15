@@ -24,12 +24,11 @@ defmodule Aoc.DayNineTest do
     assert result == 1134
   end
 
-
   @tag timeout: :infinity
   test "part two" do
     input = Path.absname(@real_input)
     result = Aoc.DayNine.part_two(input)
 
-    assert result == 931200
+    assert result == 931_200
   end
 end

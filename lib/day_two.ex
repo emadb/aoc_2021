@@ -3,7 +3,7 @@ defmodule Aoc.DayTwo do
 
   def part_one(file_path) do
     input = InputReader.get_lines_string(file_path)
-    {x, d } = move(input, {0, 0})
+    {x, d} = move(input, {0, 0})
     x * d
   end
 
@@ -18,7 +18,9 @@ defmodule Aoc.DayTwo do
     x * d
   end
 
-  def move_2(["forward " <> v | rest], {f, d, a}), do: move_2(rest, {f + to_integer(v), d + (a * to_integer(v)), a})
+  def move_2(["forward " <> v | rest], {f, d, a}),
+    do: move_2(rest, {f + to_integer(v), d + a * to_integer(v), a})
+
   def move_2(["down " <> v | rest], {f, d, a}), do: move_2(rest, {f, d, a + to_integer(v)})
   def move_2(["up " <> v | rest], {f, d, a}), do: move_2(rest, {f, d, a - to_integer(v)})
   def move_2([], result), do: result

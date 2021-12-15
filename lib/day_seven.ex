@@ -1,11 +1,10 @@
 defmodule Aoc.DaySeven do
-
   def part_one(file_path) do
-    find_min_movement(file_path, fn (a,b) -> abs(a - b) end)
+    find_min_movement(file_path, fn a, b -> abs(a - b) end)
   end
 
   def part_two(file_path) do
-    find_min_movement(file_path, fn (a,b) -> prog_sum(a, b) end)
+    find_min_movement(file_path, fn a, b -> prog_sum(a, b) end)
   end
 
   defp prog_sum(a, b) do
@@ -17,6 +16,7 @@ defmodule Aoc.DaySeven do
     input = InputReader.get_line_integer(file_path)
     min_n = Enum.min(input)
     max_n = Enum.max(input)
+
     min_n..max_n
     |> Enum.map(fn n ->
       input
@@ -24,8 +24,5 @@ defmodule Aoc.DaySeven do
       |> Enum.sum()
     end)
     |> Enum.min()
-
   end
-
-
 end

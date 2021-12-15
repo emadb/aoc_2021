@@ -14,7 +14,7 @@ defmodule Aoc.DayTwoTest do
   test "part one" do
     input = Path.absname(@real_input)
     result = Aoc.DayTwo.part_one(input)
-    assert result == 1815044
+    assert result == 1_815_044
   end
 
   test "part two (fake)" do
@@ -28,6 +28,6 @@ defmodule Aoc.DayTwoTest do
     input = Path.absname(@real_input)
     result = Aoc.DayTwo.part_two(input)
 
-    assert result == 1739283308
+    assert result == 1_739_283_308
   end
 end

@@ -1,5 +1,4 @@
 defmodule Aoc.DayFive do
-
   def part_one(file_path) do
     input = InputReader.get_lines_string(file_path)
     points = Enum.map(input, &parse_line/1)
@@ -20,8 +19,8 @@ defmodule Aoc.DayFive do
   end
 
   def count_points(x, y, points) do
-    onx = Enum.count(points, &(are_on_the_same_row(&1, {x, y})))
-    ony = Enum.count(points, &(are_on_the_same_column(&1, {x, y})))
+    onx = Enum.count(points, &are_on_the_same_row(&1, {x, y}))
+    ony = Enum.count(points, &are_on_the_same_column(&1, {x, y}))
     onx + ony
   end
 
@@ -34,17 +33,19 @@ defmodule Aoc.DayFive do
   end
 
   def find_max_x(points) do
-    Enum.reduce(points, 0, fn {{x1, _}, {x2, _}}, acc -> max(x1,x2) |> max(acc) end)
+    Enum.reduce(points, 0, fn {{x1, _}, {x2, _}}, acc -> max(x1, x2) |> max(acc) end)
   end
 
   def find_max_y(points) do
-    Enum.reduce(points, 0, fn {{_, y1}, {_, y2}}, acc -> max(y1,y2) |> max(acc) end)
+    Enum.reduce(points, 0, fn {{_, y1}, {_, y2}}, acc -> max(y1, y2) |> max(acc) end)
   end
 
   defp parse_line(line) do
     r = ~r/^(?<x1>\d*),(?<y1>\d*)\s->\s(?<x2>\d*),(?<y2>\d*)$/
     [_, x1, y1, x2, y2] = Regex.run(r, line)
-    {{String.to_integer(x1), String.to_integer(y1)}, {String.to_integer(x2), String.to_integer(y2)}}
+
+    {{String.to_integer(x1), String.to_integer(y1)},
+     {String.to_integer(x2), String.to_integer(y2)}}
   end
 
   def part_two(file_path) do
@@ -59,24 +60,27 @@ defmodule Aoc.DayFive do
   end
 
   def build_map_diagonal(max_x, max_y, points) do
-
     max_xd = find_max_x(points)
     max_yd = find_max_y(points)
-    diagonal_points = Enum.filter(points, fn {{x1, y1}, {x2, y2}} -> abs(x1 - x2) == abs(y1 - y2) end)
+
+    diagonal_points =
+      Enum.filter(points, fn {{x1, y1}, {x2, y2}} -> abs(x1 - x2) == abs(y1 - y2) end)
+
     for x <- 0..max_x, y <- 0..max_y do
-      diagonal = if x < max_xd && y < max_yd do
-        count_points_diagonal(x, y, diagonal_points)
-      else
-        0
-      end
+      diagonal =
+        if x < max_xd && y < max_yd do
+          count_points_diagonal(x, y, diagonal_points)
+        else
+          0
+        end
+
       count_points(x, y, points) + diagonal
     end
   end
 
   def count_points_diagonal(x, y, points) do
-    Enum.count(points, &(are_on_the_same_diagonal(&1, {x, y})))
+    Enum.count(points, &are_on_the_same_diagonal(&1, {x, y}))
   end
-
 
   def are_on_the_same_diagonal({{x1, y1}, {x2, y2}}, {x, y}) do
     dx = if x1 > x2, do: -1, else: 1

@@ -24,11 +24,10 @@ defmodule Aoc.DayEightTest do
     assert result == 61229
   end
 
-
   test "part two" do
     input = Path.absname(@real_input)
     result = Aoc.DayEight.part_two(input)
 
-    assert result == 1043697
+    assert result == 1_043_697
   end
 end

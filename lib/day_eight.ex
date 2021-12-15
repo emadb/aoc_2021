@@ -1,5 +1,4 @@
 defmodule Aoc.DayEight do
-
   def part_one(file_path) do
     input = InputReader.get_lines_string(file_path)
 
@@ -7,13 +6,11 @@ defmodule Aoc.DayEight do
     |> Enum.flat_map(fn l ->
       [_, od] = String.split(l, " | ")
       parse_digits_length(od)
-      end)
-      |> Enum.reduce(%{}, fn x, acc -> decode_digit(x, acc) end)
-      |> Map.values()
-      |> Enum.sum()
-
-
-    end
+    end)
+    |> Enum.reduce(%{}, fn x, acc -> decode_digit(x, acc) end)
+    |> Map.values()
+    |> Enum.sum()
+  end
 
   def part_two(file_path) do
     InputReader.get_lines_string(file_path)
@@ -26,7 +23,6 @@ defmodule Aoc.DayEight do
     |> Enum.sum()
   end
 
-
   defp process_line({input, output}) do
     output
     |> Enum.map(&String.to_charlist/1)
@@ -34,30 +30,46 @@ defmodule Aoc.DayEight do
     |> Integer.undigits()
   end
 
-
   defp decode_string(string, input) do
     n1 = Enum.find(input, &(String.length(&1) == 2)) |> String.to_charlist()
     n4 = Enum.find(input, &(String.length(&1) == 4)) |> String.to_charlist()
 
     case length(string) do
-      2 -> 1
-      3 -> 7
-      4 -> 4
-      5 -> case length(string -- n1) do
-        3 -> 3
-        _ -> case length(string -- n4) do
-          3 -> 2
-          _ -> 5
+      2 ->
+        1
+
+      3 ->
+        7
+
+      4 ->
+        4
+
+      5 ->
+        case length(string -- n1) do
+          3 ->
+            3
+
+          _ ->
+            case length(string -- n4) do
+              3 -> 2
+              _ -> 5
+            end
         end
-      end
-      6 -> case length(string -- n1) do
-        5 -> 6
-        _ -> case length(string -- n4) do
-          2 -> 9
-          _ -> 0
+
+      6 ->
+        case length(string -- n1) do
+          5 ->
+            6
+
+          _ ->
+            case length(string -- n4) do
+              2 -> 9
+              _ -> 0
+            end
         end
-      end
-      7 -> 8
+
+      7 ->
+        8
     end
   end
 
@@ -76,5 +88,4 @@ defmodule Aoc.DayEight do
       _ -> acc
     end
   end
-
 end

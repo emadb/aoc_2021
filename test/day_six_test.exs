@@ -14,20 +14,20 @@ defmodule Aoc.DaySixTest do
   test "part one" do
     input = Path.absname(@real_input)
     result = Aoc.DaySix.part_one(input)
-    assert result == 356190
+    assert result == 356_190
   end
 
   test "part two (fake)" do
     input = Path.absname(@fake_input)
     result = Aoc.DaySix.part_two(input)
 
-    assert result == 26984457539
+    assert result == 26_984_457_539
   end
 
   test "part two" do
     input = Path.absname(@real_input)
     result = Aoc.DaySix.part_two(input)
 
-    assert result == 1617359101538
+    assert result == 1_617_359_101_538
   end
 end

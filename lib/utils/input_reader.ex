@@ -1,5 +1,4 @@
 defmodule InputReader do
-
   def get_lines_integer(file_path) do
     file_path
     |> File.read!()
@@ -30,5 +29,4 @@ defmodule InputReader do
     file_path
     |> File.read!()
   end
-
 end
